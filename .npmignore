@@ -1,0 +1,9 @@
+demo
+tests
+docs
+.github
+site
+playwright-report
+test-results
+*.config.ts
+tsconfig.json
