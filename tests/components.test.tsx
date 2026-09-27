@@ -46,4 +46,19 @@ describe("Liquid Plastic components", () => {
     render(<LiquidButton loading>Save changes</LiquidButton>);
     expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
   });
+
+  it("starts one pointer-origin water ripple on press", () => {
+    render(<LiquidButton>Preview</LiquidButton>);
+    const button = screen.getByRole("button", { name: "Preview" });
+    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
+      x: 10, y: 20, left: 10, top: 20, right: 110, bottom: 60, width: 100, height: 40, toJSON: () => ({}),
+    });
+    fireEvent.pointerDown(button, { button: 0, clientX: 35, clientY: 30 });
+    const first = button.querySelector(":scope > .lp-ripple");
+    expect(first).toHaveAttribute("aria-hidden", "true");
+    expect(first).toHaveStyle({ width: "216px", height: "216px", left: "-83px", top: "-98px" });
+    fireEvent.pointerDown(button, { button: 0, clientX: 70, clientY: 50 });
+    expect(button.querySelectorAll(":scope > .lp-ripple")).toHaveLength(1);
+    expect(button.querySelector(":scope > .lp-ripple")).not.toBe(first);
+  });
 });

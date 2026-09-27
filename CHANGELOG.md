@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Restore the original Help control's hollow, pointer-origin water ripple on segmented options and buttons.
+- Match its 20% wavefront start, 520 ms propagation curve, accent ring, single-live-wave behavior, and 420 ms face-settle spring.
+
 All notable changes to Liquid Plastic UI are documented here.
 
 ## 0.0.0 — 2026-09-27

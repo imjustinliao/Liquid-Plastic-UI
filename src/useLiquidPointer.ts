@@ -43,7 +43,7 @@ export function createRipple(event: ReactPointerEvent<HTMLElement>) {
   const ripple = document.createElement("span");
   ripple.className = "lp-ripple";
   ripple.setAttribute("aria-hidden", "true");
-  ripple.style.cssText = `width:${size}px;height:${size}px;left:${event.clientX - rect.left - size / 2}px;top:${event.clientY - rect.top - size / 2}px`;
+  ripple.style.cssText = `width:${size}px;height:${size}px;left:${Math.round(event.clientX - rect.left - size / 2)}px;top:${Math.round(event.clientY - rect.top - size / 2)}px`;
   host.querySelector(":scope > .lp-ripple")?.remove();
   host.append(ripple);
   const remove = () => ripple.remove();

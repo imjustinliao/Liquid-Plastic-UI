@@ -4,8 +4,10 @@
   --lp-muted: #4f5864;
   --lp-radius: 999px;
   --lp-blur: 18px;
-  --lp-duration: 360ms;
-  --lp-ease: cubic-bezier(.22, .9, .28, 1.2);
+  --lp-duration: 420ms;
+  --lp-ease: linear(0, 0.046, 0.157, 0.299, 0.449, 0.591, 0.716, 0.819, 0.899, 0.959, 1, 1.026, 1.04, 1.046, 1.045, 1.041, 1.035, 1.028, 1.021, 1.015, 1);
+  --lp-ripple-duration: 520ms;
+  --lp-ripple-ease: cubic-bezier(.22, 1, .36, 1);
   --lp-control-height: 44px;
   --lp-segment-gap: 2px;
   --lp-reflection-opacity: .42;
@@ -68,16 +70,32 @@
 
 .lp-ripple {
   position: absolute;
-  z-index: 4;
+  z-index: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
   pointer-events: none;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(255 255 255 / 72%) 0 4%, rgb(255 255 255 / 28%) 18%, transparent 58%);
-  transform: scale(.08);
-  opacity: .72;
-  animation: lp-ripple 520ms cubic-bezier(.18,.76,.28,1) forwards;
+  background: radial-gradient(
+    circle,
+    transparent 38%,
+    color-mix(in srgb, var(--lp-accent) 16%, transparent) 46%,
+    color-mix(in srgb, var(--lp-accent) 5%, transparent) 58%,
+    transparent 70%
+  );
+  transform: scale(.2);
+  opacity: .9;
+  animation: lp-water-ripple var(--lp-ripple-duration) var(--lp-ripple-ease) both;
 }
 
-@keyframes lp-ripple { to { transform: scale(1); opacity: 0; } }
+@keyframes lp-water-ripple {
+  from { opacity: .9; transform: scale(.2); }
+  to { opacity: 0; transform: scale(1); }
+}
+
+@supports not (transition-timing-function: linear(0, 1)) {
+  :where(.lp-button, .lp-toggle, .lp-segments) { --lp-ease: cubic-bezier(.3, 1.25, .4, 1); }
+}
 
 .lp-button {
   min-height: var(--lp-control-height);
@@ -104,6 +122,9 @@
     radial-gradient(circle at 50% 50%, rgb(255 255 255 / 18%), transparent 46%),
     var(--lp-accent);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 24%), inset 0 0 5px rgb(0 0 0 / 12%), 0 0 0 1px color-mix(in srgb, var(--lp-accent) 28%, transparent), 0 0 18px color-mix(in srgb, var(--lp-accent) 24%, transparent);
+}
+.lp-button[data-variant="primary"] > .lp-ripple {
+  background: radial-gradient(circle, transparent 38%, rgb(255 255 255 / 34%) 46%, rgb(255 255 255 / 10%) 58%, transparent 70%);
 }
 .lp-button[data-variant="quiet"] { background: rgb(255 255 255 / 28%); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 58%), 0 0 10px rgb(41 54 68 / 7%); }
 .lp-button:active:not(:disabled) { transform: none; box-shadow: inset 0 0 8px rgb(41 54 68 / 24%), inset 0 0 0 1px rgb(255 255 255 / 78%), 0 0 8px rgb(41 54 68 / 10%); }
@@ -160,7 +181,7 @@
 .lp-segments > button:active:not(:disabled) { transform: none; }
 .lp-segments:has(> button:active:not(:disabled))::before { box-shadow: inset 0 0 8px rgb(54 68 82 / 20%), inset 0 0 0 1px rgb(255 255 255 / 80%), 0 0 8px rgb(42 55 69 / 10%); }
 .lp-segments > button:disabled { opacity: .42; cursor: not-allowed; }
-.lp-segments > button > span { position: relative; z-index: 2; white-space: nowrap; }
+.lp-segments > button > span:not(.lp-ripple) { position: relative; z-index: 2; white-space: nowrap; }
 
 .lp-toggle {
   display: inline-flex;

@@ -4,7 +4,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-171a1f.svg)](LICENSE)
 [![React 18+](https://img.shields.io/badge/React-18%2B-55384f.svg)](https://react.dev/)
 
-Tactile, accessible React controls shaped from translucent wells, centered light, and physical motion.
+Tactile, accessible React controls shaped from translucent wells, centered light, and water-like physical motion.
 
 Liquid Plastic UI turns the material language behind a polished segmented selector into a small component library. It has strong defaults, a compact API, and CSS variables for customization—without an animation runtime.
 
@@ -107,7 +107,7 @@ A binary switch with controlled or uncontrolled state and a visible text label.
 - Front-facing light keeps every edge equally weighted—no heavy lower shadow.
 - One frosted carrier holds one raised selection face.
 - Hover keeps the centered contour and adds only a faint bounded caustic at the pointer.
-- Press feedback begins on pointer-down and changes shading without changing layout.
+- Press feedback begins on pointer-down: one hollow wave expands from the exact contact point while concentric shading deepens without changing layout.
 - Resting controls do no continuous animation work.
 - Motion uses compositor-friendly transforms and opacity.
 
@@ -123,6 +123,8 @@ Set tokens on any ancestor. Components inherit them naturally.
   --lp-radius: 18px;
   --lp-blur: 22px;
   --lp-duration: 320ms;
+  --lp-ripple-duration: 520ms;
+  --lp-ripple-ease: cubic-bezier(.22, 1, .36, 1);
   --lp-control-height: 46px;
   --lp-reflection-opacity: .32;
 }
@@ -135,8 +137,10 @@ Set tokens on any ancestor. Components inherit them naturally.
 | `--lp-muted` | `#4f5864` | Unselected labels |
 | `--lp-radius` | `999px` | Shared control silhouette |
 | `--lp-blur` | `18px` | Segmented carrier backdrop blur |
-| `--lp-duration` | `360ms` | Sliding face settle time |
+| `--lp-duration` | `420ms` | Sliding face settle time |
 | `--lp-ease` | spring-like curve | Sliding face easing |
+| `--lp-ripple-duration` | `520ms` | Pointer-origin wave travel time |
+| `--lp-ripple-ease` | critically damped curve | Pointer-origin wave propagation |
 | `--lp-control-height` | `44px` | Default control target height |
 | `--lp-segment-gap` | `2px` | Space between segments |
 | `--lp-reflection-opacity` | `.42` | Hover caustic strength |
